@@ -172,8 +172,9 @@ NSString* const kAPPBackgroundEventDeactivate = @"deactivate";
 
     // Play music even in background and dont stop playing music
     // even another app starts playing sound
-    [session setCategory:AVAudioSessionCategoryPlayback
-                   error:NULL];
+[session setCategory:AVAudioSessionCategoryPlayback 
+         withOptions:AVAudioSessionCategoryOptionMixWithOthers 
+               error:NULL];
 
     // Active the audio session
     [session setActive:YES error:NULL];
@@ -222,7 +223,7 @@ NSString* const kAPPBackgroundEventDeactivate = @"deactivate";
     NSString* flag = [NSString stringWithFormat:@"%@._isActive=%@;",
                       kAPPBackgroundJsNamespace, active];
 
-    NSString* depFn = [NSString stringWithFormat:@"%@.on%@();",
+    NSString* depFn = [NSString stringWithFormat:@"%@.on('%@');",
                        kAPPBackgroundJsNamespace, event];
 
     NSString* fn = [NSString stringWithFormat:@"%@.fireEvent('%@');",
